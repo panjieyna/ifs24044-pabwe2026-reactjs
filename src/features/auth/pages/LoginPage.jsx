@@ -43,47 +43,58 @@ export default function LoginPage() {
         )}
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">
-            Email
-          </label>
-          <div className="relative">
-            <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="email"
-              value={email}
-              onChange={onEmailChange}
-              placeholder="nama@email.com"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition"
-              required
-            />
-          </div>
-        </div>
+  <label
+    htmlFor="login-email-input"
+    className="block text-sm font-medium text-slate-700 mb-1.5"
+  >
+    Email
+  </label>
+  <div className="relative">
+    <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+    <input
+      id="login-email-input"
+      type="email"
+      autoComplete="email"
+      value={email}
+      onChange={onEmailChange}
+      placeholder="nama@email.com"
+      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition"
+      required
+    />
+  </div>
+</div>
 
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">
-            Kata Sandi
-          </label>
-          <div className="relative">
-            <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="password"
-              value={password}
-              onChange={onPasswordChange}
-              placeholder="••••••••"
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition"
-              required
-            />
-          </div>
-        </div>
+<div>
+  <label
+    htmlFor="login-password-input"
+    className="block text-sm font-medium text-slate-700 mb-1.5"
+  >
+    Kata Sandi
+  </label>
+  <div className="relative">
+    <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+    <input
+      id="login-password-input"
+      type="password"
+      autoComplete="current-password"
+      value={password}
+      onChange={onPasswordChange}
+      placeholder="••••••••"
+      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition"
+      required
+    />
+  </div>
+</div>
 
-        <button
-          type="submit"
-          disabled={isAuthLogin}
-          className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-semibold py-2.5 rounded-xl transition"
-        >
-          <FiLogIn />
-          {isAuthLogin ? 'Memproses...' : 'Masuk'}
-        </button>
+<button
+  id="login-submit-button"
+  type="submit"
+  disabled={isAuthLogin}
+  className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-semibold py-2.5 rounded-xl transition"
+>
+  <FiLogIn aria-hidden="true" />
+  {isAuthLogin ? 'Memproses...' : 'Masuk'}
+</button>
       </form>
 
       <p className="text-center text-sm text-slate-500 mt-6">
