@@ -66,7 +66,7 @@ export default function DetailPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       <Link
         to="/"
-        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-sky-600"
+        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-sky-700"
       >
         <FiArrowLeft /> Kembali
       </Link>
@@ -111,15 +111,15 @@ export default function DetailPage() {
 
           <div className="flex flex-wrap gap-4 text-sm text-slate-500 border-t border-slate-100 pt-4">
             <div>
-              <span className="block text-xs text-slate-400">Pelapor</span>
+              <span className="block text-xs text-slate-600">Pelapor</span>
               {lostFound.author?.name || '-'}
             </div>
             <div>
-              <span className="block text-xs text-slate-400">Dilaporkan</span>
+              <span className="block text-xs text-slate-600">Dilaporkan</span>
               {formatDate(lostFound.created_at)}
             </div>
             <div>
-              <span className="block text-xs text-slate-400">Diperbarui</span>
+              <span className="block text-xs text-slate-600">Diperbarui</span>
               {formatDate(lostFound.updated_at)}
             </div>
           </div>

@@ -32,17 +32,17 @@ export default function NavbarComponent({ onToggleSidebar }) {
       <button
         type="button"
         onClick={onToggleSidebar}
-        className="lg:hidden p-2 rounded-lg hover:bg-slate-100 text-slate-600"
-        aria-label="Toggle menu"
+        className="lg:hidden p-2 rounded-lg hover:bg-slate-100 text-slate-700"
+        aria-label="Buka menu navigasi"
       >
         <FiMenu size={22} />
       </button>
 
       <Link
         to="/"
-        className="font-bold text-lg text-sky-700 flex items-center gap-2"
+        className="font-bold text-lg text-sky-800 flex items-center gap-2"
       >
-        <span className="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center text-sm font-extrabold">
+        <span className="w-8 h-8 rounded-lg bg-sky-800 text-white flex items-center justify-center text-sm font-extrabold">
           LF
         </span>
         <span className="hidden sm:inline">Lost & Found</span>
@@ -55,6 +55,9 @@ export default function NavbarComponent({ onToggleSidebar }) {
           type="button"
           onClick={() => setOpen((v) => !v)}
           className="flex items-center gap-2 px-2 py-1.5 rounded-xl hover:bg-slate-100 transition"
+          aria-label="Menu profil"
+          aria-expanded={open}
+          aria-haspopup="true"
         >
           <div className="w-9 h-9 rounded-full bg-sky-100 overflow-hidden flex items-center justify-center">
             {profile?.photo ? (
@@ -64,30 +67,36 @@ export default function NavbarComponent({ onToggleSidebar }) {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <FiUser className="text-sky-600" />
+              <FiUser className="text-sky-800" aria-hidden="true" />
             )}
           </div>
           <span className="hidden sm:block text-sm font-medium text-slate-700 max-w-[120px] truncate">
             {profile?.name || 'Pengguna'}
           </span>
-          <FiChevronDown className="text-slate-400" size={16} />
+          <FiChevronDown className="text-slate-600" size={16} aria-hidden="true" />
         </button>
 
         {open && (
-          <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-50">
+          <div
+            className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-50"
+            role="menu"
+          >
             <Link
               to="/profile"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50"
+              role="menuitem"
             >
-              <FiUser size={16} /> Profil Saya
+              <FiUser size={16} aria-hidden="true" /> Profil Saya
             </Link>
             <button
               type="button"
               onClick={handleLogout}
-              className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50"
+              className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-700 hover:bg-red-50"
+              role="menuitem"
+              aria-label="Keluar dari akun"
             >
-              <FiLogOut size={16} /> Keluar
+              <FiLogOut size={16} aria-hidden="true" /> Keluar
             </button>
           </div>
         )}

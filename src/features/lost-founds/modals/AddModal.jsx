@@ -33,7 +33,7 @@ export default function AddModal({ onClose }) {
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
           <h3 className="font-bold text-lg text-slate-800">Tambah Laporan</h3>
-          <button type="button" onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100">
+          <button type="button" onClick={onClose} aria-label="Tutup dialog" className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-700">
             <FiX size={20} />
           </button>
         </div>
@@ -47,7 +47,7 @@ export default function AddModal({ onClose }) {
               type="text"
               value={title}
               onChange={onTitleChange}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
               required
             />
           </div>
@@ -57,7 +57,7 @@ export default function AddModal({ onClose }) {
               value={description}
               onChange={onDescriptionChange}
               rows={3}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none resize-none"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none resize-none"
               required
             />
           </div>
@@ -69,7 +69,7 @@ export default function AddModal({ onClose }) {
                   key={s}
                   className={`flex-1 text-center py-2.5 rounded-xl border cursor-pointer text-sm font-medium transition ${
                     status === s
-                      ? 'border-sky-500 bg-sky-50 text-sky-700'
+                      ? 'border-sky-700 bg-sky-50 text-sky-700'
                       : 'border-slate-200 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
@@ -97,7 +97,7 @@ export default function AddModal({ onClose }) {
             <button
               type="submit"
               disabled={isLostFoundAdd}
-              className="flex-1 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-semibold"
+              className="flex-1 py-2.5 rounded-xl bg-sky-800 hover:bg-sky-900 disabled:bg-sky-600 text-white font-semibold"
             >
               {isLostFoundAdd ? 'Menyimpan...' : 'Simpan'}
             </button>

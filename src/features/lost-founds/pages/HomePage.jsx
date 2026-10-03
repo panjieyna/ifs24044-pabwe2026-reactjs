@@ -64,7 +64,7 @@ export default function HomePage() {
         <button
           type="button"
           onClick={() => setShowAdd(true)}
-          className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold px-4 py-2.5 rounded-xl transition"
+          className="inline-flex items-center gap-2 bg-sky-800 hover:bg-sky-900 text-white font-semibold px-4 py-2.5 rounded-xl transition"
         >
           <FiPlus /> Tambah Laporan
         </button>
@@ -115,18 +115,19 @@ export default function HomePage() {
       <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm space-y-4">
         <div className="flex flex-col md:flex-row gap-3">
           <div className="relative flex-1">
-            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Cari judul, deskripsi, atau pelapor..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
             />
           </div>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
+            aria-label="Filter status laporan"
             className="px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-sm"
           >
             <option value="">Semua Status</option>
@@ -136,6 +137,7 @@ export default function HomePage() {
           <select
             value={isCompleted}
             onChange={(e) => setIsCompleted(e.target.value)}
+            aria-label="Filter status penyelesaian"
             className="px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-sm"
           >
             <option value="">Semua Progres</option>
@@ -147,14 +149,14 @@ export default function HomePage() {
               type="checkbox"
               checked={isMe}
               onChange={(e) => setIsMe(e.target.checked)}
-              className="rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+              className="rounded border-slate-300 text-sky-700 focus:ring-sky-500"
             />
             Milik Saya
           </label>
         </div>
 
         {filtered.length === 0 ? (
-          <div className="text-center py-16 text-slate-400">
+          <div className="text-center py-16 text-slate-600">
             <FiPackage size={40} className="mx-auto mb-3 opacity-50" />
             <p>Belum ada laporan</p>
           </div>
@@ -174,7 +176,7 @@ export default function HomePage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-slate-400">
+                    <div className="w-full h-full flex items-center justify-center text-slate-600">
                       <FiPackage size={32} />
                     </div>
                   )}
@@ -200,7 +202,7 @@ export default function HomePage() {
                   <p className="text-sm text-slate-500 line-clamp-2 mt-1">
                     {item.description}
                   </p>
-                  <div className="flex items-center justify-between mt-3 text-xs text-slate-400">
+                  <div className="flex items-center justify-between mt-3 text-xs text-slate-600">
                     <span>{item.author?.name || '-'}</span>
                     <span>{formatDate(item.created_at)}</span>
                   </div>

@@ -30,19 +30,19 @@ export default function UsersPage() {
       </div>
 
       <div className="relative">
-        <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Cari nama atau email..."
-          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none bg-white"
+          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none bg-white"
         />
       </div>
 
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         {filtered.length === 0 ? (
-          <div className="text-center py-16 text-slate-400">
+          <div className="text-center py-16 text-slate-600">
             Tidak ada pengguna
           </div>
         ) : (
@@ -60,7 +60,7 @@ export default function UsersPage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <FiUser className="text-sky-600" size={22} />
+                    <FiUser className="text-sky-700" size={22} />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -69,7 +69,7 @@ export default function UsersPage() {
                   </p>
                   <p className="text-sm text-slate-500 truncate">{user.email}</p>
                 </div>
-                <span className="text-xs text-slate-400 hidden sm:block">
+                <span className="text-xs text-slate-600 hidden sm:block">
                   {formatDate(user.created_at)}
                 </span>
               </li>

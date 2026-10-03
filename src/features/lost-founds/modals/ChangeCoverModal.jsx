@@ -37,7 +37,7 @@ export default function ChangeCoverModal({ item, onClose }) {
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
           <h3 className="font-bold text-lg text-slate-800">Ubah Cover</h3>
-          <button type="button" onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100">
+          <button type="button" onClick={onClose} aria-label="Tutup dialog" className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-700">
             <FiX size={20} />
           </button>
         </div>
@@ -53,7 +53,7 @@ export default function ChangeCoverModal({ item, onClose }) {
                 className="max-h-48 mx-auto rounded-lg object-contain"
               />
             ) : (
-              <div className="text-slate-400">
+              <div className="text-slate-600">
                 <FiImage size={40} className="mx-auto mb-2" />
                 <p className="text-sm">Klik untuk pilih gambar</p>
               </div>
@@ -64,6 +64,7 @@ export default function ChangeCoverModal({ item, onClose }) {
               accept="image/*"
               onChange={handleFile}
               className="hidden"
+              aria-label="Pilih gambar cover"
             />
           </div>
           <div className="flex gap-3">
@@ -77,7 +78,7 @@ export default function ChangeCoverModal({ item, onClose }) {
             <button
               type="submit"
               disabled={!file || isLostFoundChangeCover}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-semibold"
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-sky-800 hover:bg-sky-900 disabled:bg-sky-600 text-white font-semibold"
             >
               <FiUpload />
               {isLostFoundChangeCover ? 'Mengunggah...' : 'Unggah'}

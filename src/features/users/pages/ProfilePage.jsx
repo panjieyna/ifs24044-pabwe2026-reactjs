@@ -79,14 +79,15 @@ export default function ProfilePage() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <FiUser className="text-sky-600" size={36} />
+              <FiUser className="text-sky-700" size={36} />
             )}
           </div>
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
             disabled={isChangeProfilePhoto}
-            className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-sky-600 text-white flex items-center justify-center shadow hover:bg-sky-700 disabled:opacity-50"
+            aria-label="Ubah foto profil"
+            className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-sky-700 text-white flex items-center justify-center shadow hover:bg-sky-800 disabled:opacity-50"
           >
             <FiCamera size={14} />
           </button>
@@ -96,6 +97,7 @@ export default function ProfilePage() {
             accept="image/*"
             onChange={handlePhotoChange}
             className="hidden"
+            aria-label="Pilih file foto profil"
           />
         </div>
         <div className="text-center sm:text-left">
@@ -104,7 +106,7 @@ export default function ProfilePage() {
           </p>
           <p className="text-slate-500 text-sm">{profile?.email}</p>
           {isChangeProfilePhoto && (
-            <p className="text-xs text-sky-600 mt-1">Mengunggah foto...</p>
+            <p className="text-xs text-sky-700 mt-1">Mengunggah foto...</p>
           )}
         </div>
       </div>
@@ -122,7 +124,7 @@ export default function ProfilePage() {
             type="text"
             value={name}
             onChange={onNameChange}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none"
+            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
           />
         </div>
         <div>
@@ -133,13 +135,13 @@ export default function ProfilePage() {
             type="email"
             value={email}
             onChange={onEmailChange}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none"
+            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
           />
         </div>
         <button
           type="submit"
           disabled={isChangeProfile}
-          className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-semibold px-4 py-2.5 rounded-xl"
+          className="inline-flex items-center gap-2 bg-sky-800 hover:bg-sky-900 disabled:bg-sky-600 text-white font-semibold px-4 py-2.5 rounded-xl"
         >
           <FiSave size={16} />
           {isChangeProfile ? 'Menyimpan...' : 'Simpan Profil'}
@@ -161,7 +163,7 @@ export default function ProfilePage() {
             type="password"
             value={password}
             onChange={onPasswordChange}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none"
+            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
             required
           />
         </div>
@@ -173,7 +175,7 @@ export default function ProfilePage() {
             type="password"
             value={newPassword}
             onChange={onNewPasswordChange}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none"
+            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
             required
           />
         </div>
@@ -185,14 +187,14 @@ export default function ProfilePage() {
             type="password"
             value={confirmPassword}
             onChange={onConfirmPasswordChange}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none"
+            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
             required
           />
         </div>
         <button
           type="submit"
           disabled={isChangeProfilePassword}
-          className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-semibold px-4 py-2.5 rounded-xl"
+          className="inline-flex items-center gap-2 bg-sky-800 hover:bg-sky-900 disabled:bg-sky-600 text-white font-semibold px-4 py-2.5 rounded-xl"
         >
           <FiLock size={16} />
           {isChangeProfilePassword ? 'Menyimpan...' : 'Ubah Kata Sandi'}
