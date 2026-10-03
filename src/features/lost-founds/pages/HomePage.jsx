@@ -196,9 +196,9 @@ export default function HomePage() {
                   )}
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-slate-800 line-clamp-1 group-hover:text-sky-700">
+                  <h2 className="font-semibold text-slate-800 line-clamp-1 group-hover:text-sky-800 text-base">
                     {item.title}
-                  </h3>
+                  </h2>
                   <p className="text-sm text-slate-500 line-clamp-2 mt-1">
                     {item.description}
                   </p>

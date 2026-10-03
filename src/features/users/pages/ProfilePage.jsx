@@ -117,10 +117,11 @@ export default function ProfilePage() {
       >
         <h2 className="font-semibold text-slate-800">Informasi Profil</h2>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label htmlFor="profile-name" className="block text-sm font-medium text-slate-700 mb-1">
             Nama
           </label>
           <input
+            id="profile-name"
             type="text"
             value={name}
             onChange={onNameChange}
@@ -128,10 +129,11 @@ export default function ProfilePage() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label htmlFor="profile-email" className="block text-sm font-medium text-slate-700 mb-1">
             Email
           </label>
           <input
+            id="profile-email"
             type="email"
             value={email}
             onChange={onEmailChange}
@@ -156,10 +158,11 @@ export default function ProfilePage() {
           <FiLock size={18} /> Ubah Kata Sandi
         </h2>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label htmlFor="profile-password" className="block text-sm font-medium text-slate-700 mb-1">
             Kata Sandi Lama
           </label>
           <input
+            id="profile-password"
             type="password"
             value={password}
             onChange={onPasswordChange}
@@ -168,10 +171,11 @@ export default function ProfilePage() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label htmlFor="profile-new-password" className="block text-sm font-medium text-slate-700 mb-1">
             Kata Sandi Baru
           </label>
           <input
+            id="profile-new-password"
             type="password"
             value={newPassword}
             onChange={onNewPasswordChange}
@@ -180,10 +184,11 @@ export default function ProfilePage() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
+          <label htmlFor="profile-confirm-password" className="block text-sm font-medium text-slate-700 mb-1">
             Konfirmasi Kata Sandi Baru
           </label>
           <input
+            id="profile-confirm-password"
             type="password"
             value={confirmPassword}
             onChange={onConfirmPasswordChange}

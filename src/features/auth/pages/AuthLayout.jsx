@@ -13,7 +13,7 @@ export default function AuthLayout() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-sky-50 via-white to-indigo-50">
-      <div className="hidden md:flex md:w-1/2 bg-sky-600 text-white p-12 flex-col justify-center items-center relative overflow-hidden">
+      <div className="hidden md:flex md:w-1/2 bg-sky-700 text-white p-12 flex-col justify-center items-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-40 h-40 rounded-full bg-white" />
           <div className="absolute bottom-20 right-16 w-64 h-64 rounded-full bg-white" />
