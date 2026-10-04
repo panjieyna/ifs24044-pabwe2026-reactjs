@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { asyncGetLostFounds, asyncGetLostFoundStats } from '../states/action';
+import { asyncGetLostFounds } from '../states/action';
 import { formatDate, coverUrl } from '../../../helpers/toolsHelper';
 import AddModal from '../modals/AddModal';
 import {
@@ -28,10 +28,6 @@ export default function HomePage() {
     if (isMe) params.is_me = 1;
     dispatch(asyncGetLostFounds(params));
   }, [dispatch, status, isCompleted, isMe]);
-
-  useEffect(() => {
-    dispatch(asyncGetLostFoundStats());
-  }, [dispatch]);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return lostFounds;
@@ -162,7 +158,7 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filtered.map((item) => (
+            {filtered.map((item, index) => (
               <Link
                 key={item.id}
                 to={`/lost-founds/${item.id}`}
@@ -171,10 +167,12 @@ export default function HomePage() {
                 <div className="aspect-video bg-slate-200 relative overflow-hidden">
                   {item.cover ? (
                     <img
-                      src={coverUrl(item.cover)}
-                      alt=""
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                    />
+  src={coverUrl(item.cover)}
+  alt=""
+  loading={index === 0 ? 'eager' : 'lazy'}
+  decoding="async"
+  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+/>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-600">
                       <FiPackage size={32} />
