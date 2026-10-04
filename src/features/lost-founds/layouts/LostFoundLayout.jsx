@@ -11,17 +11,16 @@ export default function LostFoundLayout() {
   const dispatch = useDispatch();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    async function init() {
-      const token = getAccessToken();
+    const token = getAccessToken();
 
-      if (!token) {
-        navigate('/auth/login', { replace: true });
-        return;
-      }
+    if (!token) {
+      navigate('/auth/login', { replace: true });
+      return;
+    }
 
+    async function loadProfile() {
       try {
         await dispatch(asyncGetProfile());
       } catch (error) {
@@ -32,38 +31,13 @@ export default function LostFoundLayout() {
 
         console.error('Gagal memuat profil:', error);
       }
-
-      setReady(true);
     }
 
-    init();
+    loadProfile();
   }, [dispatch, navigate]);
 
-  if (!ready) {
-    return (
-      <main
-        className="min-h-screen flex items-center justify-center bg-slate-50"
-        aria-labelledby="loading-title"
-      >
-        <div className="flex flex-col items-center gap-3">
-          <h1
-            id="loading-title"
-            className="sr-only"
-          >
-            Memuat aplikasi Lost & Founds
-          </h1>
-
-          <div
-            className="w-10 h-10 border-4 border-sky-200 border-t-sky-600 rounded-full animate-spin"
-            aria-hidden="true"
-          />
-
-          <p className="text-slate-500 text-sm">
-            Memuat sesi...
-          </p>
-        </div>
-      </main>
-    );
+  if (!getAccessToken()) {
+    return null;
   }
 
   return (
