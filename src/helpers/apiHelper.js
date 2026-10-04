@@ -37,16 +37,22 @@ export async function apiFetch(path, options = {}) {
 
   if (params && typeof params === 'object') {
     const search = new URLSearchParams();
+
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== '') {
         search.append(key, String(value));
       }
     });
+
     const qs = search.toString();
-    if (qs) url += `?${qs}`;
+
+    if (qs) {
+      url += `?${qs}`;
+    }
   }
 
   const headers = {};
+
   if (!isFormData) {
     headers['Content-Type'] = 'application/json';
     headers['Accept'] = 'application/json';
@@ -56,29 +62,47 @@ export async function apiFetch(path, options = {}) {
 
   if (auth) {
     const token = getAccessToken();
+
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
   }
 
-  const fetchOptions = { method, headers };
+  const fetchOptions = {
+    method,
+    headers,
+  };
 
   if (body !== null && body !== undefined) {
     fetchOptions.body = isFormData ? body : JSON.stringify(body);
   }
 
   const response = await fetch(url, fetchOptions);
+
   let data;
+
   try {
     data = await response.json();
   } catch {
-    data = { status: 'fail', message: 'Respons tidak valid' };
+    data = {
+      status: 'fail',
+      message: 'Respons tidak valid',
+    };
   }
 
   if (!response.ok || data.status === 'fail') {
-    const error = new Error(data.message || 'Terjadi kesalahan');
+    const error = new Error(
+      data.message || 'Terjadi kesalahan'
+    );
+
     error.data = data.data || null;
     error.status = data.status || 'fail';
+
+    // Simpan HTTP status agar halaman protected
+    // dapat membedakan error autentikasi (401)
+    // dengan error lainnya.
+    error.httpStatus = response.status;
+
     throw error;
   }
 
