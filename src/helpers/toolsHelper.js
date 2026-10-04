@@ -1,6 +1,11 @@
-import Swal from 'sweetalert2';
+async function getSwal() {
+  const module = await import('sweetalert2/dist/sweetalert2.js');
+  return module.default;
+}
 
-export function showSuccessDialog(title, text = '') {
+export async function showSuccessDialog(title, text = '') {
+  const Swal = await getSwal();
+
   return Swal.fire({
     icon: 'success',
     title,
@@ -9,7 +14,9 @@ export function showSuccessDialog(title, text = '') {
   });
 }
 
-export function showErrorDialog(title, text = '') {
+export async function showErrorDialog(title, text = '') {
+  const Swal = await getSwal();
+
   return Swal.fire({
     icon: 'error',
     title,
@@ -18,7 +25,9 @@ export function showErrorDialog(title, text = '') {
   });
 }
 
-export function showWarningDialog(title, text = '') {
+export async function showWarningDialog(title, text = '') {
+  const Swal = await getSwal();
+
   return Swal.fire({
     icon: 'warning',
     title,
@@ -27,12 +36,14 @@ export function showWarningDialog(title, text = '') {
   });
 }
 
-export function showConfirmDialog(
+export async function showConfirmDialog(
   title,
   text = '',
   confirmText = 'Ya',
   cancelText = 'Batal'
 ) {
+  const Swal = await getSwal();
+
   return Swal.fire({
     icon: 'question',
     title,
@@ -47,8 +58,10 @@ export function showConfirmDialog(
 
 export function formatDate(dateString) {
   if (!dateString) return '-';
+
   try {
     const date = new Date(dateString);
+
     return date.toLocaleString('id-ID', {
       day: '2-digit',
       month: 'short',
@@ -64,11 +77,13 @@ export function formatDate(dateString) {
 export function coverUrl(cover) {
   if (!cover) return null;
   if (cover.startsWith('http')) return cover;
+
   return `https://open-api.delcom.org/${cover}`;
 }
 
 export function photoUrl(photo) {
   if (!photo) return null;
   if (photo.startsWith('http')) return photo;
+
   return `https://open-api.delcom.org/${photo}`;
 }
