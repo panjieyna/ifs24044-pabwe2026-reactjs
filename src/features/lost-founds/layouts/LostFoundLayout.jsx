@@ -17,31 +17,22 @@ export default function LostFoundLayout() {
     async function init() {
       const token = getAccessToken();
 
-      // Tidak ada token berarti user memang belum login.
       if (!token) {
         navigate('/auth/login', { replace: true });
         return;
       }
 
       try {
-        // Coba mengambil profile menggunakan token.
         await dispatch(asyncGetProfile());
       } catch (error) {
-        // Hanya redirect ke login jika token memang
-        // ditolak oleh server.
         if (error?.httpStatus === 401) {
           navigate('/auth/login', { replace: true });
           return;
         }
 
-        // Jika error bukan karena autentikasi,
-        // jangan langsung menganggap user belum login.
-        // Dashboard tetap dapat ditampilkan.
         console.error('Gagal memuat profil:', error);
       }
 
-      // Setelah pengecekan sesi selesai,
-      // izinkan halaman utama ditampilkan.
       setReady(true);
     }
 
@@ -50,14 +41,28 @@ export default function LostFoundLayout() {
 
   if (!ready) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <main
+        className="min-h-screen flex items-center justify-center bg-slate-50"
+        aria-labelledby="loading-title"
+      >
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-4 border-sky-200 border-t-sky-600 rounded-full animate-spin" />
+          <h1
+            id="loading-title"
+            className="sr-only"
+          >
+            Memuat aplikasi Lost & Founds
+          </h1>
+
+          <div
+            className="w-10 h-10 border-4 border-sky-200 border-t-sky-600 rounded-full animate-spin"
+            aria-hidden="true"
+          />
+
           <p className="text-slate-500 text-sm">
             Memuat sesi...
           </p>
         </div>
-      </div>
+      </main>
     );
   }
 
@@ -73,7 +78,14 @@ export default function LostFoundLayout() {
           onClose={() => setSidebarOpen(false)}
         />
 
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
+        <main
+          id="main-content"
+          className="flex-1 overflow-y-auto p-4 md:p-6"
+        >
+          <h1 className="sr-only">
+            Lost & Founds
+          </h1>
+
           <Outlet />
         </main>
       </div>
