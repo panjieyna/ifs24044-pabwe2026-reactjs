@@ -21,7 +21,7 @@ export default function LoginPage() {
       return;
     }
     try {
-      await dispatch(asyncSetIsAuthLogin({ email, password }));
+      await Promise.resolve(dispatch(asyncSetIsAuthLogin({ email, password })));
       navigate('/', { replace: true });
     } catch {
       // error sudah ditampilkan via dialog

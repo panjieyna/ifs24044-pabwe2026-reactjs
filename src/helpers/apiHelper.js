@@ -1,5 +1,5 @@
 const BASE_URL =
-  typeof DELCOM_BASEURL !== 'undefined'
+  typeof DELCOM_BASEURL !== 'undefined' && DELCOM_BASEURL
     ? DELCOM_BASEURL
     : 'https://open-api.delcom.org/api/v1';
 
@@ -19,6 +19,44 @@ export function removeAccessToken() {
   localStorage.removeItem('accessToken');
 }
 
+function buildUrl(path, params) {
+  const normalized = path.startsWith('/') ? path : '/' + path;
+  let url = BASE_URL + normalized;
+
+  if (!params || typeof params !== 'object') {
+    return url;
+  }
+
+  const search = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== '') {
+      search.append(key, String(value));
+    }
+  });
+
+  const qs = search.toString();
+  if (qs) {
+    url = url + '?' + qs;
+  }
+  return url;
+}
+
+function buildHeaders(isFormData, auth) {
+  const headers = {
+    Accept: 'application/json',
+  };
+  if (!isFormData) {
+    headers['Content-Type'] = 'application/json';
+  }
+  if (auth) {
+    const token = getAccessToken();
+    if (token) {
+      headers.Authorization = 'Bearer ' + token;
+    }
+  }
+  return headers;
+}
+
 /**
  * Wrapper fetch ke REST API Delcom.
  * @param {string} path
@@ -33,40 +71,8 @@ export async function apiFetch(path, options = {}) {
     auth = true,
   } = options;
 
-  let url = `${BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
-
-  if (params && typeof params === 'object') {
-    const search = new URLSearchParams();
-
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== '') {
-        search.append(key, String(value));
-      }
-    });
-
-    const qs = search.toString();
-
-    if (qs) {
-      url += `?${qs}`;
-    }
-  }
-
-  const headers = {};
-
-  if (!isFormData) {
-    headers['Content-Type'] = 'application/json';
-    headers['Accept'] = 'application/json';
-  } else {
-    headers['Accept'] = 'application/json';
-  }
-
-  if (auth) {
-    const token = getAccessToken();
-
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-  }
+  const url = buildUrl(path, params);
+  const headers = buildHeaders(isFormData, auth);
 
   const fetchOptions = {
     method,
@@ -80,7 +86,6 @@ export async function apiFetch(path, options = {}) {
   const response = await fetch(url, fetchOptions);
 
   let data;
-
   try {
     data = await response.json();
   } catch {
@@ -91,18 +96,10 @@ export async function apiFetch(path, options = {}) {
   }
 
   if (!response.ok || data.status === 'fail') {
-    const error = new Error(
-      data.message || 'Terjadi kesalahan'
-    );
-
+    const error = new Error(data.message || 'Terjadi kesalahan');
     error.data = data.data || null;
     error.status = data.status || 'fail';
-
-    // Simpan HTTP status agar halaman protected
-    // dapat membedakan error autentikasi (401)
-    // dengan error lainnya.
     error.httpStatus = response.status;
-
     throw error;
   }
 

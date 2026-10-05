@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncAddLostFound, asyncGetLostFounds } from '../states/action';
 import useInput from '../../../hooks/useInput';
 import { FiX } from 'react-icons/fi';
 
-export default function AddModal({ onClose }) {
+function AddModal({ onClose }) {
   const dispatch = useDispatch();
   const { isLostFoundAdd } = useSelector((state) => state.lostFounds);
   const [title, onTitleChange] = useInput('');
@@ -20,7 +21,7 @@ export default function AddModal({ onClose }) {
       return;
     }
     try {
-      await dispatch(asyncAddLostFound({ title, description, status }));
+      await Promise.resolve(dispatch(asyncAddLostFound({ title, description, status })));
       dispatch(asyncGetLostFounds());
       onClose();
     } catch {
@@ -42,9 +43,10 @@ export default function AddModal({ onClose }) {
             <div className="bg-red-50 text-red-600 text-sm rounded-lg px-3 py-2">{error}</div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Judul</label>
+            <label htmlFor="add-title" className="block text-sm font-medium text-slate-700 mb-1">Judul</label>
             <input
               type="text"
+              id="add-title"
               value={title}
               onChange={onTitleChange}
               className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
@@ -52,7 +54,7 @@ export default function AddModal({ onClose }) {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
+            <label htmlFor="add-desc" className="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
             <textarea
               value={description}
               onChange={onDescriptionChange}
@@ -62,7 +64,7 @@ export default function AddModal({ onClose }) {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Jenis</label>
+            <span className="block text-sm font-medium text-slate-700 mb-1" id="add-jenis-label">Jenis</span>
             <div className="flex gap-3">
               {['lost', 'found'].map((s) => (
                 <label
@@ -107,3 +109,9 @@ export default function AddModal({ onClose }) {
     </div>
   );
 }
+
+AddModal.propTypes = {
+  onClose: PropTypes.func,
+};
+
+export default AddModal;

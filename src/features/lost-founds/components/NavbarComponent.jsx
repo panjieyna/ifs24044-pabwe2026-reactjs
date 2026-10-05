@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -5,7 +6,7 @@ import { asyncSetIsAuthLogout } from '../../auth/states/action';
 import { photoUrl } from '../../../helpers/toolsHelper';
 import { FiMenu, FiLogOut, FiUser, FiChevronDown } from 'react-icons/fi';
 
-export default function NavbarComponent({ onToggleSidebar }) {
+function NavbarComponent({ onToggleSidebar }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const profile = useSelector((state) => state.users.profile);
@@ -23,7 +24,7 @@ export default function NavbarComponent({ onToggleSidebar }) {
   }, []);
 
   async function handleLogout() {
-    await dispatch(asyncSetIsAuthLogout());
+    await Promise.resolve(dispatch(asyncSetIsAuthLogout()));
     navigate('/auth/login', { replace: true });
   }
 
@@ -104,3 +105,9 @@ export default function NavbarComponent({ onToggleSidebar }) {
     </header>
   );
 }
+
+NavbarComponent.propTypes = {
+  onToggleSidebar: PropTypes.func,
+};
+
+export default NavbarComponent;

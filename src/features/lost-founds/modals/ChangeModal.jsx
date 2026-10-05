@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncChangeLostFound, asyncGetLostFoundById } from '../states/action';
 import useInput from '../../../hooks/useInput';
 import { FiX } from 'react-icons/fi';
 
-export default function ChangeModal({ item, onClose }) {
+function ChangeModal({ item, onClose }) {
   const dispatch = useDispatch();
   const { isLostFoundChange } = useSelector((state) => state.lostFounds);
   const [title, onTitleChange, setTitle] = useInput(item?.title || '');
@@ -32,15 +33,15 @@ export default function ChangeModal({ item, onClose }) {
       return;
     }
     try {
-      await dispatch(
+      await Promise.resolve(dispatch(
         asyncChangeLostFound(item.id, {
           title,
           description,
           status,
           is_completed: isCompleted ? 1 : 0,
         })
-      );
-      await dispatch(asyncGetLostFoundById(item.id));
+      ));
+      await Promise.resolve(dispatch(asyncGetLostFoundById(item.id)));
       onClose();
     } catch {
       // handled
@@ -61,19 +62,19 @@ export default function ChangeModal({ item, onClose }) {
             <div className="bg-red-50 text-red-600 text-sm rounded-lg px-3 py-2">{error}</div>
           )}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Judul</label>
+            <label htmlFor="chg-title" className="block text-sm font-medium text-slate-700 mb-1">Judul</label>
             <input
               type="text"
-              value={title}
+              id="chg-title" value={title}
               onChange={onTitleChange}
               className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
+            <label htmlFor="chg-desc" className="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
             <textarea
-              value={description}
+              id="chg-desc" value={description}
               onChange={onDescriptionChange}
               rows={3}
               className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:border-sky-700 focus:ring-2 focus:ring-sky-200 outline-none resize-none"
@@ -81,7 +82,7 @@ export default function ChangeModal({ item, onClose }) {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Jenis</label>
+            <span className="block text-sm font-medium text-slate-700 mb-1" id="chg-jenis-label">Jenis</span>
             <div className="flex gap-3">
               {['lost', 'found'].map((s) => (
                 <label
@@ -135,3 +136,16 @@ export default function ChangeModal({ item, onClose }) {
     </div>
   );
 }
+
+ChangeModal.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    title: PropTypes.string,
+    description: PropTypes.string,
+    status: PropTypes.string,
+    is_completed: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  }),
+  onClose: PropTypes.func,
+};
+
+export default ChangeModal;

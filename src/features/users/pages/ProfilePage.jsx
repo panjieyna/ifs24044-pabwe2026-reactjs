@@ -35,13 +35,13 @@ export default function ProfilePage() {
 
   async function handleProfileSubmit(e) {
     e.preventDefault();
-    await dispatch(asyncChangeProfile({ name, email }));
+    await Promise.resolve(dispatch(asyncChangeProfile({ name, email })));
   }
 
   async function handlePhotoChange(e) {
     const file = e.target.files?.[0];
     if (file) {
-      await dispatch(asyncChangeProfilePhoto(file));
+      await Promise.resolve(dispatch(asyncChangeProfilePhoto(file)));
     }
   }
 
@@ -50,13 +50,13 @@ export default function ProfilePage() {
     if (newPassword !== confirmPassword) {
       return;
     }
-    await dispatch(
+    await Promise.resolve(dispatch(
       asyncChangeProfilePassword({
         password,
         new_password: newPassword,
         new_password_confirmation: confirmPassword,
       })
-    );
+    ));
     setPassword('');
     setNewPassword('');
     setConfirmPassword('');

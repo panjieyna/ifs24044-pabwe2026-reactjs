@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { FiHome, FiUsers, FiUser, FiX } from 'react-icons/fi';
 
@@ -7,7 +8,7 @@ const links = [
   { to: '/profile', label: 'Profil Saya', icon: FiUser },
 ];
 
-export default function SidebarComponent({ open, onClose }) {
+function SidebarComponent({ open, onClose }) {
   return (
     <>
       {open && (
@@ -59,3 +60,10 @@ export default function SidebarComponent({ open, onClose }) {
     </>
   );
 }
+
+SidebarComponent.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+};
+
+export default SidebarComponent;

@@ -128,10 +128,14 @@ describe('lost-founds actions', () => {
   });
 
   it('asyncGetLostFoundStats', async () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
     lfApi.getStatsDaily.mockResolvedValue({ data: { a: 1 } });
     lfApi.getStatsMonthly.mockResolvedValue({ data: { b: 2 } });
     await actions.asyncGetLostFoundStats()(dispatch);
+    expect(dispatch).toHaveBeenCalled();
     lfApi.getStatsDaily.mockRejectedValue(new Error('e'));
     await actions.asyncGetLostFoundStats()(dispatch);
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
   });
 });

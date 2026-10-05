@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -6,7 +7,7 @@ import {
 } from '../states/action';
 import { FiX, FiUpload, FiImage } from 'react-icons/fi';
 
-export default function ChangeCoverModal({ item, onClose }) {
+function ChangeCoverModal({ item, onClose }) {
   const dispatch = useDispatch();
   const { isLostFoundChangeCover } = useSelector((state) => state.lostFounds);
   const [file, setFile] = useState(null);
@@ -24,8 +25,8 @@ export default function ChangeCoverModal({ item, onClose }) {
     e.preventDefault();
     if (!file) return;
     try {
-      await dispatch(asyncChangeLostFoundCover(item.id, file));
-      await dispatch(asyncGetLostFoundById(item.id));
+      await Promise.resolve(dispatch(asyncChangeLostFoundCover(item.id, file)));
+      await Promise.resolve(dispatch(asyncGetLostFoundById(item.id)));
       onClose();
     } catch {
       // handled
@@ -89,3 +90,12 @@ export default function ChangeCoverModal({ item, onClose }) {
     </div>
   );
 }
+
+ChangeCoverModal.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }),
+  onClose: PropTypes.func,
+};
+
+export default ChangeCoverModal;

@@ -46,7 +46,7 @@ export default function DetailPage() {
     );
     if (result.isConfirmed) {
       try {
-        await dispatch(asyncDeleteLostFound(id));
+        await Promise.resolve(dispatch(asyncDeleteLostFound(id)));
         navigate('/', { replace: true });
       } catch {
         // handled

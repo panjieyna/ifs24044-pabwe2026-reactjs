@@ -22,7 +22,7 @@ export default function LostFoundLayout() {
 
     async function loadProfile() {
       try {
-        await dispatch(asyncGetProfile());
+        await Promise.resolve(dispatch(asyncGetProfile()));
       } catch (error) {
         if (error?.httpStatus === 401) {
           navigate('/auth/login', { replace: true });

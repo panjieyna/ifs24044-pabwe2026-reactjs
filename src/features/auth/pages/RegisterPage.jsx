@@ -26,7 +26,7 @@ export default function RegisterPage() {
       return;
     }
     try {
-      await dispatch(asyncSetIsAuthRegister({ name, email, password }));
+      await Promise.resolve(dispatch(asyncSetIsAuthRegister({ name, email, password })));
       navigate('/auth/login', { replace: true });
     } catch {
       // handled by dialog
@@ -48,12 +48,13 @@ export default function RegisterPage() {
         )}
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">
+          <label htmlFor="reg-name" className="block text-sm font-medium text-slate-700 mb-1.5">
             Nama
           </label>
           <div className="relative">
             <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
             <input
+              id="reg-name"
               type="text"
               value={name}
               onChange={onNameChange}
@@ -65,12 +66,13 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">
+          <label htmlFor="reg-email" className="block text-sm font-medium text-slate-700 mb-1.5">
             Email
           </label>
           <div className="relative">
             <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
             <input
+              id="reg-email"
               type="email"
               value={email}
               onChange={onEmailChange}
@@ -82,12 +84,13 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">
+          <label htmlFor="reg-password" className="block text-sm font-medium text-slate-700 mb-1.5">
             Kata Sandi
           </label>
           <div className="relative">
             <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" />
             <input
+              id="reg-password"
               type="password"
               value={password}
               onChange={onPasswordChange}
