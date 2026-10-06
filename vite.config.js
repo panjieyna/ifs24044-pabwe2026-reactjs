@@ -17,34 +17,26 @@ export default defineConfig(({ mode }) => {
       port,
       host: true,
     },
-      test: {
+    test: {
       globals: true,
       environment: 'jsdom',
       setupFiles: './src/setupTests.js',
-      // vite.config.js → coverage
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov'],
-      include: [
-        'src/helpers/**',
-        'src/hooks/**',
-        'src/store.js',
-        'src/features/**/api/**',
-        'src/features/**/states/**',
-      ],
-      exclude: [
-        'src/**/*.test.{js,jsx}',
-        'src/__tests__/**',
-        'src/setupTests.js',
-        'src/test-utils.jsx',
-      ],
-      thresholds: {
-        lines: 80,
-        functions: 80,
-        branches: 80,
-        statements: 80,
+      coverage: {
+        provider: 'v8',
+        reporter: ['text', 'json', 'html', 'lcov'],
+        // Semua file sumber (js + jsx) ikut dihitung, sama seperti yang dilihat Sonar.
+        include: ['src/**/*.{js,jsx}'],
+        exclude: [
+          'src/**/*.test.{js,jsx}',
+          'src/__tests__/**',
+          'src/main.jsx',
+          'src/setupTests.js',
+          'src/test-utils.jsx',
+        ],
+        // Threshold sengaja tidak dipasang di sini: gerbang 80% sudah dijaga
+        // oleh SonarQube Quality Gate, dan threshold vitest bisa membuat
+        // stage Test gagal sebelum sampai ke Sonar.
       },
-    },
     },
   };
 });
