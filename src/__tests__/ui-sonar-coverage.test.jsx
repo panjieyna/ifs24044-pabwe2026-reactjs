@@ -62,7 +62,10 @@ describe('UI coverage for sonar new code', () => {
 
   it('renders AddModal', () => {
     renderWithProviders(<AddModal onClose={vi.fn()} />);
-    expect(screen.getByText(/tambah|laporan|judul/i)).toBeTruthy();
+    expect(
+      screen.getByRole('heading', { name: /tambah laporan/i })
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/judul/i)).toBeInTheDocument();
   });
 
   it('renders ChangeModal', () => {
