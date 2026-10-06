@@ -113,7 +113,7 @@ function ChangeModal({ item, onClose }) {
               onChange={(e) => setIsCompleted(e.target.checked)}
               className="rounded border-slate-300 text-sky-700 focus:ring-sky-500"
             />
-            Tandai sebagai selesai
+            <span>Tandai sebagai selesai</span>
           </label>
           <div className="flex gap-3 pt-2">
             <button

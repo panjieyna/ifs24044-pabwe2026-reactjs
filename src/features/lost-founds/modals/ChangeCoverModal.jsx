@@ -43,9 +43,10 @@ function ChangeCoverModal({ item, onClose }) {
           </button>
         </div>
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
-          <div
+          <button
+            type="button"
             onClick={() => inputRef.current?.click()}
-            className="border-2 border-dashed border-slate-200 rounded-xl p-6 text-center cursor-pointer hover:border-sky-400 hover:bg-sky-50/50 transition"
+            className="w-full border-2 border-dashed border-slate-200 rounded-xl p-6 text-center cursor-pointer hover:border-sky-400 hover:bg-sky-50/50 transition"
           >
             {preview ? (
               <img
@@ -67,7 +68,7 @@ function ChangeCoverModal({ item, onClose }) {
               className="hidden"
               aria-label="Pilih gambar cover"
             />
-          </div>
+          </button>
           <div className="flex gap-3">
             <button
               type="button"

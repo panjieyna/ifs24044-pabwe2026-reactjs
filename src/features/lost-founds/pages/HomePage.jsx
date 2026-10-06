@@ -147,7 +147,7 @@ export default function HomePage() {
               onChange={(e) => setIsMe(e.target.checked)}
               className="rounded border-slate-300 text-sky-700 focus:ring-sky-500"
             />
-            Milik Saya
+            <span>Milik Saya</span>
           </label>
         </div>
 
